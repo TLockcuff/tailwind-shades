@@ -214,9 +214,19 @@ export default function Home() {
               </li>
             </ul>
           </div>
-
-          <br/>
-          <div>Created by <a href="https://tlockcuff.dev" className="underline">Travis Lockcuff</a></div>
+          <br />
+          <div>
+            Created by{" "}
+            <a href="https://tlockcuff.dev" className="underline">
+              Travis Lockcuff
+            </a>
+            .
+            <br />I also wrote an article about this tool if you&apos;re a curious minded individual{" "}
+            <a href="https://tlockcuff.dev/articles/tailwind-shades-generator" className="underline">
+              Read here
+            </a>
+            .
+          </div>
         </Section>
       </div>
     </div>
