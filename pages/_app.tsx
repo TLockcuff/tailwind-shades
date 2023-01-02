@@ -19,13 +19,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="og:url" content="https://tailwindshades.app/"/>
         <meta property="og:title" content="Tailwind Shades Generator"/>
         <meta property="og:description" content="Quickly generate Tailwind shades and CSS variables for your project."/>
-        <meta property="og:image" content="/cover.jpg"/>
+        <meta property="og:image" content="https://tailwindshades.app/cover.jpg"/>
 
         <meta property="twitter:card" content="summary_large_image"/>
         <meta property="twitter:url" content="https://tailwindshades.app/"/>
         <meta property="twitter:title" content="Tailwind Shades Generator"/>
         <meta property="twitter:description" content="Quickly generate Tailwind shades and CSS variables for your project."/>
-        <meta property="twitter:image" content="/cover.jpg"/>
+        <meta property="twitter:image" content="https://tailwindshades.app/cover.jpg"/>
         <link rel="manifest" href="/site.webmanifest"></link>
         <script defer data-domain="tailwindshades.app" src="https://insights.tlockcuff.dev/js/script.js"></script>
       </Head>
