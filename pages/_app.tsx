@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="twitter:description" content="Quickly generate Tailwind shades and CSS variables for your project."/>
         <meta property="twitter:image" content="https://tailwindshades.app/cover.jpg"/>
         <link rel="manifest" href="/site.webmanifest"></link>
-        <script defer data-domain="tailwindshades.app" src="https://insights.tlockcuff.dev/js/script.js"></script>
+        <script defer data-domain="tailwindshades.app" src="https://insights.tlockcuff.dev/js/script.outbound-links.js"></script>
       </Head>
       <Component {...pageProps} />
     </>
