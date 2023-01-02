@@ -214,6 +214,9 @@ export default function Home() {
               </li>
             </ul>
           </div>
+
+          <br/>
+          <div>Created by <a href="https://tlockcuff.dev" className="underline">Travis Lockcuff</a></div>
         </Section>
       </div>
     </div>
