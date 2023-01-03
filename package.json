@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@analytics/mixpanel": "^0.4.0",
     "@next/font": "13.1.1",
     "@tippyjs/react": "^4.2.6",
+    "analytics": "^0.8.1",
     "copy-to-clipboard": "^3.3.3",
     "highlight.js": "^11.7.0",
     "lodash": "^4.17.21",
@@ -22,7 +24,8 @@
     "react-icons": "^4.7.1",
     "react-use": "^17.4.0",
     "theme-colors": "^0.0.5",
-    "tippy.js": "^6.3.7"
+    "tippy.js": "^6.3.7",
+    "use-analytics": "^0.0.5"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.191",
@@ -31,6 +34,7 @@
     "@types/react": "18.0.26",
     "@types/react-color": "^3.0.6",
     "@types/react-dom": "18.0.10",
+    "@types/use-analytics": "^0.0.0",
     "autoprefixer": "^10.4.13",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",

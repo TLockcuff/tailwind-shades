@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import classNames from "../utils/classNames";
-import hljs from "highlight.js";
-import { TbCheck, TbCopy, TbInfoCircle, TbQuestionMark } from "react-icons/tb";
-import copy from "copy-to-clipboard";
 import Tippy from "@tippyjs/react";
-import { useAnalytics } from "../hooks/useAnalytics";
+import copy from "copy-to-clipboard";
+import hljs from "highlight.js";
+import { useEffect, useState } from "react";
+import { TbCheck, TbCopy, TbQuestionMark } from "react-icons/tb";
+import { useAnalytics } from "use-analytics";
+import classNames from "../utils/classNames";
 
 export default function Code({ title, lang, badge, info, children }: { title?: string; lang?: string; badge?: string; info?: any; children?: any }) {
   const [copied, setCopied] = useState(false);
-  const analytics = useAnalytics();
+  const { track } = useAnalytics();
 
   const handleCopy = () => {
     setCopied(true);
     copy(children);
-    analytics.event("Copy code", { title });
+    track("Copy code", { value: title });
     setTimeout(() => {
       setCopied(false);
     }, 2000);

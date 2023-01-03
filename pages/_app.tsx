@@ -1,9 +1,52 @@
-import "../styles/globals.css";
+import mixPanel from "@analytics/mixpanel";
+import { Analytics } from "analytics";
+import { Config } from "mixpanel-browser";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { AnalyticsProvider } from "../hooks/useAnalytics";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { AnalyticsProvider } from "use-analytics";
+import "../styles/globals.css";
+
+const IS_PROD = process.env.NODE_ENV === "production";
+
+interface MixPanelConfig {
+  token: string;
+  options: Config;
+}
+
+const analytics = Analytics({
+  app: "tailwind-shades-generator",
+  debug: true,
+  plugins: [IS_PROD && mixPanel({ token: "6f0bebe12be29185ace37b87f0267912", options: { debug: false, ignore_dnt: true } } as MixPanelConfig)].filter(
+    Boolean
+  ),
+});
 
 export default function App({ Component, pageProps }: AppProps) {
+  // on route change send a page view event
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      analytics.page({ url });
+    };
+
+    if (router.pathname === "/") {
+      analytics.page({ url: router.pathname });
+    }
+
+    //When the component is mounted, subscribe to router changes
+    //and log those page views
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events, router.pathname]);
+
   return (
     <>
       <Head>
@@ -30,7 +73,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest"></link>
         <script defer data-domain="tailwindshades.app" src="https://insights.tlockcuff.dev/js/script.outbound-links.js"></script>
       </Head>
-      <AnalyticsProvider>
+      <AnalyticsProvider instance={analytics}>
         <Component {...pageProps} />
       </AnalyticsProvider>
     </>

@@ -3,10 +3,10 @@ import { getColors } from "theme-colors";
 import Code from "../components/Code";
 import { TbHash, TbLink } from "react-icons/tb";
 import Section from "../components/Section";
-import { useAnalytics } from "../hooks/useAnalytics";
 import { useDebounce } from "react-use";
 import { SketchPicker } from "react-color";
 import Tippy from "@tippyjs/react";
+import { useAnalytics } from "use-analytics";
 
 export default function Home() {
   const [hex, setHex] = useState("");
@@ -14,8 +14,8 @@ export default function Home() {
   const [hsl, setHsl] = useState("");
   const [shades, setShades] = useState<any>({});
   const [shadesInRgb, setShadesInRgb] = useState<any>({});
-  const analytics = useAnalytics();
   const [showPicker, setShowPicker] = useState(false);
+  const { track } = useAnalytics();
 
   useEffect(() => {
     // setHex(randomHex());
@@ -42,13 +42,7 @@ export default function Home() {
     }
   }, [hex]);
 
-  useDebounce(
-    () => {
-      analytics.event("Generate shades", { color: hex });
-    },
-    100,
-    [hex]
-  );
+  useDebounce(() => (hex !== "75ACFF" ? track("Generate shades", { color: hex }) : null), 1000, [hex]);
 
   return (
     <div className="py-10 max-w-5xl mx-auto relative px-4">
