@@ -4,6 +4,9 @@ import Code from "../components/Code";
 import { TbHash, TbLink } from "react-icons/tb";
 import Section from "../components/Section";
 import { useAnalytics } from "../hooks/useAnalytics";
+import { useDebounce } from "react-use";
+import SketchPicker from "react-color";
+import Tippy from "@tippyjs/react";
 
 export default function Home() {
   const [hex, setHex] = useState("");
@@ -12,6 +15,7 @@ export default function Home() {
   const [shades, setShades] = useState<any>({});
   const [shadesInRgb, setShadesInRgb] = useState<any>({});
   const analytics = useAnalytics();
+  const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
     // setHex(randomHex());
@@ -32,35 +36,59 @@ export default function Home() {
           return acc;
         }, {});
         setShadesInRgb(shadesInRgb);
-
-        analytics.event("Generate shades", { color: hex });
       } catch (ex) {
         console.log(ex);
       }
     }
   }, [hex]);
 
+  useDebounce(
+    () => {
+      analytics.event("Generate shades", { color: hex });
+    },
+    100,
+    [hex]
+  );
+
   return (
     <div className="py-10 max-w-5xl mx-auto relative px-4">
       <div className="text-center text-5xl mb-3 font-black text-zinc-200">Tailwind Shades Generator</div>
       <div className="text-center text-zinc-300 text-lg font-bold">Quickly generate Tailwind shades and CSS variables for your project.</div>
 
-      <div className="flex justify-center mx-auto mt-10 z-50 relative w-[250px] rounded-lg overflow-hidden border border-zinc-600">
-        <div className="flex items-center">
-          <div className="h-12 flex items-center w-12 flex-shrink-0 border-r border-zinc-600 justify-center bg-zinc-900/50">
-            <TbHash />
-          </div>
-          <div className="w-[154px]">
-            <input
-              className="h-12 px-3 focus:outline-none font-bold bg-zinc-900/50 uppercase font-mono"
-              value={hex}
-              onChange={(e) => setHex(e.target.value)}
-              placeholder="Enter hex"
-              maxLength={6}
-            />
-          </div>
-          <div className="h-12 w-12 flex-shrink-0 border-l border-zinc-600 flex items-center justify-center bg-zinc-900/50">
-            <input className="h-5 w-5 border-0 p-0" type="color" value={`#${hex}`} onChange={(e) => setHex(e.target.value.replace("#", ""))} />
+      <div className="flex">
+        <div className="inline-flex justify-center mx-auto mt-10 z-50 relative border border-zinc-600 rounded-lg">
+          <div className="flex items-center">
+            <div className="h-12 flex items-center w-12 flex-shrink-0 border-r border-zinc-600 justify-center bg-zinc-900/50 rounded-l-lg overflow-hidden">
+              <TbHash />
+            </div>
+            <div className="">
+              <input
+                className="h-12 px-3 focus:outline-none font-bold bg-zinc-900/50 uppercase font-mono w-[150px]"
+                value={hex}
+                onChange={(e) => setHex(e.target.value)}
+                placeholder="Enter hex"
+                maxLength={6}
+              />
+            </div>
+            <div className="h-12 w-12 flex-shrink-0 border-l border-zinc-600 flex items-center justify-center bg-zinc-900/50 rounded-r-lg">
+              <Tippy
+                interactive={true}
+                visible={showPicker}
+                className="relative z-50"
+                content={
+                  <div className="relative z-50">
+                    <SketchPicker color={hex} onChangeComplete={(color: any) => setHex(color.hex.replace("#", ""))} />
+                  </div>
+                }
+                trigger="manual"
+                hideOnClick={false}
+                placement="bottom"
+                onHide={() => setShowPicker(false)}
+                onClickOutside={() => setShowPicker(false)}
+              >
+                <div className="w-5 h-5 rounded-md cursor-pointer" style={{ background: `#${hex}` }} onClick={() => setShowPicker(true)}></div>
+              </Tippy>
+            </div>
           </div>
         </div>
       </div>
