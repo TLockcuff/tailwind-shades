@@ -3,6 +3,7 @@ import { getColors } from "theme-colors";
 import Code from "../components/Code";
 import { TbHash, TbLink } from "react-icons/tb";
 import Section from "../components/Section";
+import { useAnalytics } from "../hooks/useAnalytics";
 
 export default function Home() {
   const [hex, setHex] = useState("");
@@ -10,6 +11,7 @@ export default function Home() {
   const [hsl, setHsl] = useState("");
   const [shades, setShades] = useState<any>({});
   const [shadesInRgb, setShadesInRgb] = useState<any>({});
+  const analytics = useAnalytics();
 
   useEffect(() => {
     // setHex(randomHex());
@@ -30,6 +32,8 @@ export default function Home() {
           return acc;
         }, {});
         setShadesInRgb(shadesInRgb);
+
+        analytics.event("Generate shades", { color: hex });
       } catch (ex) {
         console.log(ex);
       }

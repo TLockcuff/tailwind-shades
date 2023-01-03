@@ -4,25 +4,16 @@ import hljs from "highlight.js";
 import { TbCheck, TbCopy, TbInfoCircle, TbQuestionMark } from "react-icons/tb";
 import copy from "copy-to-clipboard";
 import Tippy from "@tippyjs/react";
+import { useAnalytics } from "../hooks/useAnalytics";
 
-export default function Code({
-  title,
-  lang,
-  badge,
-  info,
-  children,
-}: {
-  title?: string;
-  lang?: string;
-  badge?: string;
-  info?: any;
-  children?: any;
-}) {
+export default function Code({ title, lang, badge, info, children }: { title?: string; lang?: string; badge?: string; info?: any; children?: any }) {
   const [copied, setCopied] = useState(false);
+  const analytics = useAnalytics();
 
   const handleCopy = () => {
     setCopied(true);
     copy(children);
+    analytics.event("Copy code", { title });
     setTimeout(() => {
       setCopied(false);
     }, 2000);
