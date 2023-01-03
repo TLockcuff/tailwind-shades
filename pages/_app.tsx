@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { AnalyticsProvider } from "use-analytics";
 import "../styles/globals.css";
+import { usePanelbear } from "@panelbear/panelbear-nextjs";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
@@ -46,6 +47,8 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events, router.pathname]);
+
+  usePanelbear("H1ALDZn4VTk", { scriptSrc: "/bear.js" });
 
   return (
     <>

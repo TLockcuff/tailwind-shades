@@ -11,6 +11,7 @@
   "dependencies": {
     "@analytics/mixpanel": "^0.4.0",
     "@next/font": "13.1.1",
+    "@panelbear/panelbear-nextjs": "^1.0.5",
     "@tippyjs/react": "^4.2.6",
     "analytics": "^0.8.1",
     "copy-to-clipboard": "^3.3.3",
