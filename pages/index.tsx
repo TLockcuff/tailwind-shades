@@ -5,7 +5,7 @@ import { TbHash, TbLink } from "react-icons/tb";
 import Section from "../components/Section";
 import { useAnalytics } from "../hooks/useAnalytics";
 import { useDebounce } from "react-use";
-import SketchPicker from "react-color";
+import { SketchPicker } from "react-color";
 import Tippy from "@tippyjs/react";
 
 export default function Home() {
